@@ -1,0 +1,18 @@
+{
+  "name": "tutorialcicd",
+  "version": "1.0.0",
+  "description": "Express app for learning CI/CD with GitHub Actions and Render",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

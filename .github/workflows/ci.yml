@@ -1,0 +1,35 @@
+# ชื่อ workflow ที่จะโชว์ในแท็บ Actions บน GitHub
+name: CI
+
+# trigger: รันเมื่อ push เข้า main หรือเปิด Pull Request เข้า main
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    # เครื่อง virtual ที่ GitHub เตรียมให้ฟรี
+    runs-on: ubuntu-latest
+
+    # ทดสอบกับ Node หลายเวอร์ชันพร้อมกัน (matrix)
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
+
+    steps:
+      # 1) ดึงโค้ดจาก repo ลงเครื่อง runner
+      - uses: actions/checkout@v4
+
+      # 2) ติดตั้ง Node ตามเวอร์ชันใน matrix + cache โฟลเดอร์ npm ให้รันรอบหน้าเร็วขึ้น
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      # 3) ติดตั้ง dependencies ตาม package-lock.json แบบเป๊ะ ๆ
+      - run: npm ci
+
+      # 4) รันเทสต์ ถ้า fail job นี้จะเป็นสีแดง
+      - run: npm test
