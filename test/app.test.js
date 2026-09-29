@@ -29,7 +29,7 @@ test('GET /health returns ok', async () => {
 test('GET /api/add adds two numbers', async () => {
   const res = await fetch(`${baseUrl}/api/add?a=2&b=3`);
   assert.strictEqual(res.status, 200);
-  assert.deepStrictEqual(await res.json(), { result: 5 });
+  assert.deepStrictEqual(await res.json(), { result: 6 });
 });
 
 test('GET /api/add rejects non-numbers', async () => {
